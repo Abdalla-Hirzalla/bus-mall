@@ -169,8 +169,8 @@ function userClick(event) {
 
 
     else {
-        document.getElementById("button").onclick = function () { getList() };
-        allImage.removeEventListener('click', userClick);
+        document.getElementById("button").onclick = function () { getList()};
+        allImages.removeEventListner('click', userClick);
     }
 
 
