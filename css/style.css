@@ -1,0 +1,17 @@
+img{
+    width :20%;
+    border: solid 2px blue;
+}
+
+
+button{
+font-weight: bolder;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+   
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 12px;
+    font-family: 'Sigmar One', cursive;
+}
