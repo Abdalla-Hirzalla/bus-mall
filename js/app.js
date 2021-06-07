@@ -92,6 +92,8 @@ function randomIndex() {
 
 // let newImages=[];
 
+let displayArray = [];
+
 function renderThreeImages() {
 
     leftImageindex = randomIndex();
@@ -100,15 +102,33 @@ function renderThreeImages() {
 
 
 
-    while (leftImageindex === centerImageindex || leftImageindex === rightImageindex || centerImageindex === rightImageindex) {
+    while (leftImageindex === centerImageindex || leftImageindex === rightImageindex || centerImageindex === rightImageindex ||displayArray.includes(leftImageindex) || displayArray.includes(centerImageindex) || displayArray.includes(rightImageindex)) {
 
 
         rightImageindex = randomIndex();
         centerImageindex = randomIndex();
-
+         leftImageindex= randomIndex();
 
 
     }
+
+
+
+    displayArray=[];
+    displayArray.push(leftImageindex);
+    displayArray.push(centerImageindex);
+    displayArray.push(rightImageindex);
+
+    console.log(leftImageindex,centerImageindex,rightImageindex);
+
+
+   
+   
+   
+   
+
+
+
 
     leftImage.src = BusMall.allImages[leftImageindex].source;
     BusMall.allImages[leftImageindex].shown++;
@@ -119,24 +139,10 @@ function renderThreeImages() {
     rightImage.src = BusMall.allImages[rightImageindex].source;
     BusMall.allImages[rightImageindex].shown++;
 
+    
 
 
-
-
-    let displayArray = [];
-
-    displayArray.push(leftImageindex, centerImageindex, rightImageindex);
-
-    while (displayArray.includes(leftImageindex) || displayArray.includes(centerImageindex) || displayArray.includes(rightImageindex)) {
-
-
-        leftImageindex = randomIndex();
-        centerImageindex = randomIndex();
-        rightImageindex = randomIndex();
-
-        // console.log(displayArray);
-    }
-
+    
 
 }
 
