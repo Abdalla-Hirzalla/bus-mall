@@ -123,8 +123,8 @@ renderThreeImages();
 
 
 
-let button = document.getElementById('list');
-button.addEventListener('click', userClick);
+// let button = document.getElementById('list');
+// button.addEventListener('click', userClick);
 
 
 
@@ -143,7 +143,7 @@ function userClick(event) {
 
 
 
-    if (maxAttempts >= counter) {
+    if (counter <= maxAttempts) {
 
 
         if (event.target.id === 'leftImage') {
@@ -157,29 +157,36 @@ function userClick(event) {
 
             BusMall.allImages[rightImageindex].votes++;
         }
-        else {
-            (event.target.id === 'centerImage')
+        else if (event.target.id === 'centerImage') {
 
             BusMall.allImages[centerImageindex].votes++;
         }
+        else {
+            alert('Please Click in the Images ');
 
+            counter--;
+
+        }
         renderThreeImages();
 
+    } else {
+        let button = document.getElementById('button');
+        button.hidden = false;
+        button.addEventListener('click', getList);
+
+        divImages.removeEventListener('click', userClick);
     }
 
 
-    else {
-        document.getElementById("button").onclick = function () { getList()};
-        allImages.removeEventListner('click', userClick);
-    }
 
+}
 
-    function getList() {
-        let ul = document.getElementById('list');
-        for (let i = 0; i < BusMall.allImages.length; i++) {
-            let li = document.createElement('li');
-            ul.appendChild(li);
-            li.textContent = `${BusMall.allImages[i].name} had 
+function getList() {
+    let ul = document.getElementById('list');
+    for (let i = 0; i < BusMall.allImages.length; i++) {
+        let li = document.createElement('li');
+        ul.appendChild(li);
+        li.textContent = `${BusMall.allImages[i].name} had 
            ${BusMall.allImages[i].votes} votes, and was seen ${BusMall.allImages[i].timeShown} times.`;
 
 
@@ -188,8 +195,9 @@ function userClick(event) {
 
 
 
-        }
     }
-
+    button.removeEventListener('click', getList);
 }
+
+
 
