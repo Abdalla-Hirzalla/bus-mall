@@ -15,13 +15,19 @@ let maxAttempts = 25;
 
 let counter = 0;
 
+let imageNames = [];
 
+let votes = [];
+
+let shown = [];
 
 function BusMall(name, source) {
     this.name = name;
     this.source = source;
-    this.timeShown = 0;
+    this.shown = 0;
     this.votes = 0;
+
+    imageNames.push(this.name);
 
     BusMall.allImages.push(this);
 
@@ -84,7 +90,7 @@ function randomIndex() {
 }
 
 
-
+// let newImages=[];
 
 function renderThreeImages() {
 
@@ -96,22 +102,41 @@ function renderThreeImages() {
 
     while (leftImageindex === centerImageindex || leftImageindex === rightImageindex || centerImageindex === rightImageindex) {
 
+
+        rightImageindex = randomIndex();
+        centerImageindex = randomIndex();
+
+
+
+    }
+
+    leftImage.src = BusMall.allImages[leftImageindex].source;
+    BusMall.allImages[leftImageindex].shown++;
+
+    centerImage.src = BusMall.allImages[centerImageindex].source;
+    BusMall.allImages[centerImageindex].shown++;
+
+    rightImage.src = BusMall.allImages[rightImageindex].source;
+    BusMall.allImages[rightImageindex].shown++;
+
+
+
+    let displayArray = [];
+    displayArray.push(leftImageindex, centerImageindex, rightImageindex);
+
+    while (displayArray.includes(leftImageindex) || displayArray.includes(centerImageindex) || displayArray.includes(rightImageindex)) {
+
+
         leftImageindex = randomIndex();
         centerImageindex = randomIndex();
+        rightImageindex = randomIndex();
+
+        // console.log(displayArray);
+
+
     }
 
 
-
-
-
-    leftImage.src = BusMall.allImages[leftImageindex].source;
-    BusMall.allImages[leftImageindex].timeShown++;
-
-    centerImage.src = BusMall.allImages[centerImageindex].source;
-    BusMall.allImages[centerImageindex].timeShown++;
-
-    rightImage.src = BusMall.allImages[rightImageindex].source;
-    BusMall.allImages[rightImageindex].timeShown++;
 
 
 
@@ -123,8 +148,6 @@ renderThreeImages();
 
 
 
-// let button = document.getElementById('list');
-// button.addEventListener('click', userClick);
 
 
 
@@ -163,19 +186,30 @@ function userClick(event) {
         }
         else {
             alert('Please Click in the Images ');
-
             counter--;
 
         }
         renderThreeImages();
 
     } else {
+        console.log(BusMall.allImages);
         let button = document.getElementById('button');
         button.hidden = false;
         button.addEventListener('click', getList);
 
         divImages.removeEventListener('click', userClick);
+
+
+        for (let i = 0; i < BusMall.allImages.length; i++) {
+
+            votes.push(BusMall.allImages[i].votes);
+            shown.push(BusMall.allImages[i].shown);
+        }
+
+        chart();
+
     }
+
 
 
 
@@ -187,7 +221,7 @@ function getList() {
         let li = document.createElement('li');
         ul.appendChild(li);
         li.textContent = `${BusMall.allImages[i].name} had 
-           ${BusMall.allImages[i].votes} votes, and was seen ${BusMall.allImages[i].timeShown} times.`;
+           ${BusMall.allImages[i].votes} votes, and was seen ${BusMall.allImages[i].shown} times.`;
 
 
 
@@ -200,4 +234,68 @@ function getList() {
 }
 
 
+
+// add chart
+
+function chart() {
+    
+    let ctx = document.getElementById('myChart');
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: imageNames,
+            datasets: [{
+                label: '# of Votes',
+                data: votes,
+                backgroundColor: [
+                    '#5e8b7e',
+                    '#5e8b7e',
+                    '#5e8b7e',
+                    '#5e8b7e',
+                    '#5e8b7e',
+                    '#5e8b7e'
+                ],
+                borderColor: [
+                    'tomato',
+                    'tomato',
+                    'tomato',
+                    'tomato',
+                    'tomato',
+                    'tomato'
+                ],
+                borderWidth: 2
+            },
+            {
+                label: '# of shown',
+                data: shown,
+                backgroundColor: [
+                    '#fb9300',
+                    '#fb9300',
+                    '#fb9300',
+                    '#fb9300',
+                    '#fb9300',
+                    '#fb9300'
+                ],
+                borderColor: [
+                    'green',
+                    'green',
+                    'green',
+                    'green',
+                    'green',
+                    'green'
+                ],
+                borderWidth: 2
+            }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+}
 
