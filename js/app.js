@@ -121,7 +121,10 @@ function renderThreeImages() {
 
 
 
+
+
     let displayArray = [];
+
     displayArray.push(leftImageindex, centerImageindex, rightImageindex);
 
     while (displayArray.includes(leftImageindex) || displayArray.includes(centerImageindex) || displayArray.includes(rightImageindex)) {
@@ -132,23 +135,13 @@ function renderThreeImages() {
         rightImageindex = randomIndex();
 
         // console.log(displayArray);
-
-
     }
-
-
-
-
 
 
 }
 
 
 renderThreeImages();
-
-
-
-
 
 
 //add Event ;
@@ -160,10 +153,6 @@ divImages.addEventListener('click', userClick);
 function userClick(event) {
     counter++;
     console.log(event.target.id);
-
-
-
-
 
 
     if (counter <= maxAttempts) {
@@ -211,8 +200,6 @@ function userClick(event) {
     }
 
 
-
-
 }
 
 function getList() {
@@ -225,20 +212,14 @@ function getList() {
 
 
 
-
-
-
-
     }
     button.removeEventListener('click', getList);
 }
 
-
-
 // add chart
 
 function chart() {
-    
+
     let ctx = document.getElementById('myChart');
     let myChart = new Chart(ctx, {
         type: 'bar',
