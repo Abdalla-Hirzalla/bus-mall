@@ -9,7 +9,7 @@ let leftImageindex;
 let centerImageindex;
 let rightImageindex;
 
-
+let displayArray = [];
 
 let maxAttempts = 25;
 
@@ -90,9 +90,42 @@ function randomIndex() {
 }
 
 
+BusMall.shownVotes = [];
+
+function updateStorage() {
+    let arrayString = JSON.stringify(BusMall.allImages);
+
+    localStorage.setItem('showandvote', arrayString);
+    // console.log(arrayString);
+
+  
+}
+
+
+function getShownAndVotes() {
+
+    let data = localStorage.getItem('showandvote');
+    let showandvoteData =JSON.parse(data);
+
+    if (showandvoteData !== null) {
+        BusMall.allImages=showandvoteData;
+
+    //    localStorage.setItem('user',userClick());
+
+
+    }
+
+
+
+    renderThreeImages();
+
+}
+getShownAndVotes() ;
+
 // let newImages=[];
 
-let displayArray = [];
+
+
 
 function renderThreeImages() {
 
@@ -102,31 +135,24 @@ function renderThreeImages() {
 
 
 
-    while (leftImageindex === centerImageindex || leftImageindex === rightImageindex || centerImageindex === rightImageindex ||displayArray.includes(leftImageindex) || displayArray.includes(centerImageindex) || displayArray.includes(rightImageindex)) {
+    while (leftImageindex === centerImageindex || leftImageindex === rightImageindex || centerImageindex === rightImageindex || displayArray.includes(leftImageindex) || displayArray.includes(centerImageindex) || displayArray.includes(rightImageindex)) {
 
 
         rightImageindex = randomIndex();
         centerImageindex = randomIndex();
-         leftImageindex= randomIndex();
+        leftImageindex = randomIndex();
 
 
     }
 
 
-
-    displayArray=[];
+   displayArray = [];
+ 
     displayArray.push(leftImageindex);
     displayArray.push(centerImageindex);
     displayArray.push(rightImageindex);
 
-    console.log(leftImageindex,centerImageindex,rightImageindex);
-
-
-   
-   
-   
-   
-
+    console.log(leftImageindex, centerImageindex, rightImageindex);
 
 
 
@@ -139,10 +165,10 @@ function renderThreeImages() {
     rightImage.src = BusMall.allImages[rightImageindex].source;
     BusMall.allImages[rightImageindex].shown++;
 
-    
 
 
-    
+
+
 
 }
 
@@ -180,18 +206,19 @@ function userClick(event) {
             BusMall.allImages[centerImageindex].votes++;
         }
         else {
-            alert('Please Click in the Images ');
+           alert('Please Click in the Images ');
             counter--;
-
+            
+         
         }
         renderThreeImages();
 
     } else {
-        console.log(BusMall.allImages);
+        // console.log(BusMall.allImages);
         let button = document.getElementById('button');
         button.hidden = false;
         button.addEventListener('click', getList);
-
+      
         divImages.removeEventListener('click', userClick);
 
 
@@ -200,11 +227,12 @@ function userClick(event) {
             votes.push(BusMall.allImages[i].votes);
             shown.push(BusMall.allImages[i].shown);
         }
-
+        updateStorage();
         chart();
-
+        
     }
-
+  
+  
 
 }
 
@@ -286,3 +314,4 @@ function chart() {
 
 }
 
+getShownAndVotes();
