@@ -111,10 +111,10 @@ function getShownAndVotes() {
         BusMall.allImages=showandvoteData;
 
     //    localStorage.setItem('user',userClick());
-
+     
 
     }
-
+   chart();
 
 
     renderThreeImages();
@@ -222,11 +222,11 @@ function userClick(event) {
         divImages.removeEventListener('click', userClick);
 
 
-        for (let i = 0; i < BusMall.allImages.length; i++) {
+        // for (let i = 0; i < BusMall.allImages.length; i++) {
 
-            votes.push(BusMall.allImages[i].votes);
-            shown.push(BusMall.allImages[i].shown);
-        }
+        //     votes.push(BusMall.allImages[i].votes);
+        //     shown.push(BusMall.allImages[i].shown);
+        // }
         updateStorage();
         chart();
         
@@ -254,6 +254,11 @@ function getList() {
 
 function chart() {
 
+    for (let i = 0; i < BusMall.allImages.length; i++) {
+
+        votes.push(BusMall.allImages[i].votes);
+        shown.push(BusMall.allImages[i].shown);
+    }
     let ctx = document.getElementById('myChart');
     let myChart = new Chart(ctx, {
         type: 'bar',
