@@ -114,7 +114,7 @@ function getShownAndVotes() {
      
 
     }
-   chart();
+  
 
 
     renderThreeImages();
@@ -194,16 +194,19 @@ function userClick(event) {
 
 
             BusMall.allImages[leftImageindex].votes++;
+            renderThreeImages();
 
 
         }
         else if (event.target.id === 'rightImage') {
 
             BusMall.allImages[rightImageindex].votes++;
+            renderThreeImages();
         }
         else if (event.target.id === 'centerImage') {
 
             BusMall.allImages[centerImageindex].votes++;
+            renderThreeImages();
         }
         else {
            alert('Please Click in the Images ');
@@ -211,7 +214,7 @@ function userClick(event) {
             
          
         }
-        renderThreeImages();
+        
 
     } else {
         // console.log(BusMall.allImages);
